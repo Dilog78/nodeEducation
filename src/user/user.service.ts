@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { UserDto } from "./dto/user.dto";
@@ -15,6 +15,11 @@ export class UserService {
         private readonly userRepository: Repository<UserEntity>
     ){}
     async createUser(UserDto: UserDto): Promise<UserEntity> {
+        const userByEmail = await this.userRepository.findOne({email: UserDto.email});
+        const userByUsername = await this.userRepository.findOne({ username: UserDto.username});
+        if (userByEmail || userByUsername){
+            throw new HttpException('Email or ussername are taken', HttpStatus.UNPROCESSABLE_ENTITY)
+        }
         const newUser = new UserEntity();
         Object.assign(newUser, UserDto);
         return await this.userRepository.save(newUser)
