@@ -25,6 +25,8 @@ export class UserController{
 
     @Get('user')
     async currentUser(@Req() request: ExpressRequestInterface): Promise<UserResponseInterface> {
-        return this.userService.userResponse(request.user);
+        console.log(request.headers, request.user);
+        // return this.userService.userResponse(request.user);
+        return request.user as any;
     }
 }

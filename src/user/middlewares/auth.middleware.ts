@@ -29,6 +29,5 @@ export class AuthMiddleware implements NestMiddleware {
             req.user = null;
             next();
         }
-        next();
     }
 }
