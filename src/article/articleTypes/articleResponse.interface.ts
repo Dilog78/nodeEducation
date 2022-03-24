@@ -1,5 +1,5 @@
 import { ArticleEntity } from "../article.entity";
 
-export interface ArticleResponceInterface{
+export interface ArticleResponseInterface{
     article: ArticleEntity;
 }
