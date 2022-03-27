@@ -1,27 +1,27 @@
-import { Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, Post, Put, Req, UseGuards, UsePipes } from "@nestjs/common";
 import { LoginUserDto } from "./dto/login.dto";
 import { UserDto } from "./dto/user.dto";
-import { ExpressRequestInterface } from "@app/types/expressRequest.interface";
 import { UserResponseInterface } from "./types/userRes.interface";
 import { UserService } from "./user.service";
 import { User } from "./decorators/user.decorator";
 import { UserEntity } from "./user.entity";
 import { AuthGuard } from "./guards/auth.guard";
 import { UpdateUserDto } from "./dto/updateUser.Dto";
+import { BackendValidationPipe } from "@app/shared/pipes/backendValidation.pipe";
 
 
 @Controller()
 export class UserController{
     constructor(private readonly userService: UserService){}
     @Post('users')
-    @UsePipes(new ValidationPipe())
+    @UsePipes(new BackendValidationPipe())
     async createUser(@Body('user') createUserDto: UserDto):Promise<UserResponseInterface>{
          const user = await this.userService.createUser(createUserDto);
          return this.userService.userResponse(user);
     }
 
     @Post('users/login')
-    @UsePipes(new ValidationPipe())
+    @UsePipes(new BackendValidationPipe())
     async login(@Body('user') loginDto: LoginUserDto): Promise<UserResponseInterface>{
         const user = await this.userService.login(loginDto);
         return this.userService.userResponse(user);
