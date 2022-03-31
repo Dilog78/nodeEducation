@@ -1,3 +1,4 @@
+import { CommentEntity } from "@app/comments/comment.entity";
 import { FollowEntity } from "@app/profile/follow.entity";
 import { UserEntity } from "@app/user/user.entity";
 import { Module } from "@nestjs/common";
@@ -8,7 +9,7 @@ import { ArticleService } from "./article.service";
 
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ArticleEntity,UserEntity, FollowEntity])],
+    imports: [TypeOrmModule.forFeature([ArticleEntity,UserEntity, FollowEntity, CommentEntity])],
     controllers: [ArticleController],
     providers: [ArticleService],
 })

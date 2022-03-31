@@ -88,7 +88,7 @@ export class ArticleService {
         .leftJoinAndSelect('articles.author', 'author')
         .where('articles.authorId IN (:...ids)', {ids: followIds});
 
-        queryBuilder.orderBy('articles.createdAt', 'DESC');
+        queryBuilder.orderBy('articles.createAt', 'DESC');
 
         const articlesCount = await queryBuilder.getCount();
 

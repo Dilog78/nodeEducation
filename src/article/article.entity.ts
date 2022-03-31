@@ -1,5 +1,6 @@
+import { CommentEntity } from "@app/comments/comment.entity";
 import { UserEntity } from "@app/user/user.entity";
-import { BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeUpdate, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'articles'})
 export class ArticleEntity {
@@ -19,7 +20,7 @@ export class ArticleEntity {
     body: string;
 
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
-    createdAt: Date;
+    createAt: Date;
 
     @Column({type: 'timestamp', default: () => 'CURRENT_TIMESTAMP'})
     updateAt: Date;
@@ -37,4 +38,5 @@ export class ArticleEntity {
 
     @ManyToOne(() => UserEntity, user => user.articles, {eager: true})
     author: UserEntity;
+
 }

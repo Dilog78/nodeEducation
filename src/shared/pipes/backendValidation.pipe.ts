@@ -5,6 +5,11 @@ import { validate } from "class-validator";
 export class BackendValidationPipe implements PipeTransform{
     async transform(value: any, metadata: ArgumentMetadata) {
         const obj = plainToClass(metadata.metatype, value);
+
+        if(typeof Object !== 'object') {
+            return value;
+        }
+
         const errors = await validate(obj);
 
         if(errors.length === 0) {

@@ -1,5 +1,6 @@
 import { ArticleEntity } from "@app/article/article.entity";
 import { ArticleService } from "@app/article/article.service";
+import { CommentEntity } from "@app/comments/comment.entity";
 import { hash } from "bcrypt";
 import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -30,6 +31,9 @@ export class UserEntity{
 
     @OneToMany(() => ArticleEntity, article => article.author)
     articles: ArticleEntity[];
+
+    @OneToMany(() => CommentEntity, comment => comment.author)
+    comments: CommentEntity[];
 
     @ManyToMany(() => ArticleEntity)
     @JoinTable()
